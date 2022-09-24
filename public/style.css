@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+.animacao {
+  display: flex;
+  width: 100%;
+  margin: 40px 0;
+  justify-content: space-between;
+}
+
+.forca {
+  width: 50%;
+}
+
+.forca img {
+  width: 100%;
+}
+
+.palavra {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.palavra button {
+  width: 130px;
+  height: 35px;
+  background-color: rgb(100 160 100);
+  color: white;
+  border: none;
+  font-weight: bolder;
+  margin-top: 18px;
+  border-radius: 7px;
+}
+
+h1{
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+ul {
+  width: 95%;
+  margin: 0 25px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+li:hover, button:hover{
+  cursor: pointer;
+}
+
+.arriscar {
+  width: 94%;
+  height: 23px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.arriscar input {
+    width: 45%;
+    height: 23px;
+    margin: 0 12px;
+    border-radius: 5px;
+}
+
+.arriscar button {
+  height: 28px;
+  border-radius: 5px;
+}
+
+.nao-clicado {
+  background-color: rgb(227 244 251);
+  color: #8181fb;
+  border: 1px solid rgb(197 197 197);;
+}
+
+.clicado {
+  background-color: rgb(197 197 197);
+  color: rgb(116 116 116);
+  border: none;
+}
+
+.verde{
+  color:green;
+}
+.vermelha{
+  color:red;
+}
