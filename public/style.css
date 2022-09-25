@@ -58,7 +58,7 @@ li {
   border-radius: 3px;
 }
 
-li:hover, button:hover{
+.palavra button:hover{
   cursor: pointer;
 }
 
@@ -87,12 +87,14 @@ li:hover, button:hover{
   background-color: rgb(227 244 251);
   color: #8181fb;
   border: 1px solid rgb(197 197 197);;
+  cursor: pointer;
 }
 
 .clicado {
   background-color: rgb(197 197 197);
   color: rgb(116 116 116);
   border: none;
+  cursor: default;
 }
 
 .verde{

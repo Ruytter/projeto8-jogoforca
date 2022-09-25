@@ -81,12 +81,12 @@ function App() {
     }
 
     if (!arrayRender2.includes("_")) {
-      setClicados([...listaLetras]);
+      setClicados([...listaLetras, 'chutou']);
       setFimDeJogo("verde");
     }
 
     if (cont === 6) {
-      setClicados([...listaLetras]);
+      setClicados([...listaLetras, 'chutou']);
       setArrayRender(arrayRender1);
       setFimDeJogo("vermelha");
       //setForca(`./assets/forca6.png`);
@@ -107,7 +107,6 @@ function App() {
       }
     }
 
-    console.log(palavraSortiada);
     setClicados([...listaLetras, "chutou"]);
     setArrayRender(arrayRender1);
     if (palavraChute === palavraSortiada) {
@@ -116,6 +115,7 @@ function App() {
       setFimDeJogo("vermelha");
     }
     alert(palavraChute);
+    setPalavraChute('')
   }
 
   return (
