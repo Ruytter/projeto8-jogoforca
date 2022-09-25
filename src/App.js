@@ -1,9 +1,9 @@
 import palavras from "./palavras";
 import { useState } from "react";
 import styled from "styled-components";
-let arrayRender1 = [];
-let arrayRender2 = [];
-let cont = 0;
+//let arrayRender1 = [];
+//let arrayRender2 = [];
+//let cont = 0;
 
 function App() {
   const listaLetras = [
@@ -39,25 +39,31 @@ function App() {
   const [forca, setForca] = useState("./assets/forca0.png");
   const [clicados, setClicados] = useState([...listaLetras, "chutou"]);
   const [fimDeJogo, setFimDeJogo] = useState("");
+  const [palavraJogo, setPalavraJogo] = useState("");
   const [palavraChute, setPalavraChute] = useState("");
+  const [arrayRender1, setArrayRender1] = useState([]);
+  const [arrayRender2, setArrayRender2] = useState([]);
+  const [cont, setCont] = useState(0);
 
-  function Palavra() {
+  function Palavra(p) {
     setClicados([]);
     setFimDeJogo("");
-    cont = 0;
-    setForca(`./assets/forca${cont}.png`);
+    setForca(`./assets/forca0.png`);
     const palavraSortiada =
       palavras[Math.floor(Math.random() * palavras.length)];
-    arrayRender1 = [];
-    arrayRender2 = [];
+    setPalavraJogo(palavraSortiada);
+    const array1 = [];
+    const array2 = [];
     for (let i = 0; i < palavraSortiada.length - 1; i++) {
-      arrayRender1.push(palavraSortiada[i], " ");
-      arrayRender2.push("_", " ");
+      array1.push(palavraSortiada[i], " ");
+      array2.push("_", " ");
     }
-    arrayRender1.push(palavraSortiada[palavraSortiada.length - 1]);
-    arrayRender2.push("_");
-    setArrayRender(arrayRender2);
-    console.log(arrayRender1);
+    array1.push(palavraSortiada[palavraSortiada.length - 1]);
+    array2.push("_");
+    setArrayRender(array2);
+    setArrayRender1([...array1]);
+    setArrayRender2([...array2]);
+    console.log(array1);
   }
 
   function Letra(l) {
@@ -66,31 +72,33 @@ function App() {
     }
 
     setClicados([...clicados, l]);
+    let valor = cont;
+    let array2 = [...arrayRender2];
 
     if (!arrayRender1.includes(l.toLowerCase())) {
-      cont++;
-      setForca(`./assets/forca${cont}.png`);
+      valor = cont + 1;
+      setForca(`./assets/forca${valor}.png`);
     }
 
     for (let i = 0; i < arrayRender1.length; i++) {
       if (arrayRender1[i] === l.toLowerCase()) {
-        arrayRender2[i] = arrayRender1[i];
+        array2[i] = arrayRender1[i];
       }
-      const newArray = [...arrayRender2];
-      setArrayRender(newArray);
     }
+    setArrayRender2([...array2]);
+    setArrayRender(array2);
+    setCont(valor);
 
-    if (!arrayRender2.includes("_")) {
-      setClicados([...listaLetras, 'chutou']);
+    if (!array2.includes("_")) {
+      setClicados([...listaLetras, "chutou"]);
       setFimDeJogo("verde");
     }
-
-    if (cont === 6) {
-      setClicados([...listaLetras, 'chutou']);
+    console.log(valor);
+    if (valor === 6) {
+      setClicados([...listaLetras, "chutou"]);
       setArrayRender(arrayRender1);
       setFimDeJogo("vermelha");
-      //setForca(`./assets/forca6.png`);
-      cont = 0;
+      setCont(0);
     }
   }
 
@@ -98,37 +106,29 @@ function App() {
     if (clicados.includes("chutou")) {
       return;
     }
-    let palavraSortiada = "";
-    setClicados([...clicados, "chutou"]);
-    arrayRender2 = [...arrayRender1];
-    for (let i = 0; i < arrayRender1.length; i++) {
-      if (arrayRender1[i] !== " ") {
-        palavraSortiada += arrayRender1[i];
-      }
-    }
 
     setClicados([...listaLetras, "chutou"]);
     setArrayRender(arrayRender1);
-    if (palavraChute === palavraSortiada) {
+    if (palavraChute === palavraJogo) {
       setFimDeJogo("verde");
     } else {
       setFimDeJogo("vermelha");
     }
-    alert(palavraChute);
-    setPalavraChute('')
+    setPalavraChute("");
+    setForca(`./assets/forca6.png`);
   }
 
   return (
     <Conteudo>
-      <div className="animacao">
-        <div className="forca">
+      <Animacao>
+        <Forca>
           <img src={forca} alt="" />
-        </div>
+        </Forca>
         <div className="palavra">
           <button onClick={Palavra}>Escolher Palavra</button>
           <h1 className={fimDeJogo}>{arrayRender}</h1>
         </div>
-      </div>
+      </Animacao>
 
       <div className="letras">
         <ul>
@@ -166,4 +166,17 @@ export default App;
 const Conteudo = styled.div`
   max-width: 500px;
   margin: 0 auto;
+`;
+const Animacao = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 40px 0;
+  justify-content: space-between;
+`;
+
+const Forca = styled.div`
+  width: 50%;
+  img {
+    width: 100%;
+  }
 `;
