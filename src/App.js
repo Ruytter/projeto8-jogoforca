@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 function App() {
+
   const listaLetras = [
     "A",
     "B",
@@ -54,6 +55,7 @@ function App() {
       palavraSortiada.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     );
     setPalavraJogo(palavraSortiada);
+    console.log(palavraSortiada)
     const array1 = [];
     const array2 = [];
     for (let i = 0; i < palavraSortiada.length - 1; i++) {
@@ -114,14 +116,12 @@ function App() {
 
     setClicados([...listaLetras, "chutou"]);
     setArrayRender(arrayRender1);
-    if (palavraChute === palavraJogo) {
+    if (palavraChute.toLowerCase() === palavraJogo) {
       setFimDeJogo("verde");
     } else {
       setFimDeJogo("vermelha");
       setForca(`./assets/forca6.png`);
-    }
-    setPalavraChute("");
-    
+    }    
   }
 
   return (
