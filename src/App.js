@@ -1,9 +1,6 @@
 import palavras from "./palavras";
 import { useState } from "react";
 import styled from "styled-components";
-//let arrayRender1 = [];
-//let arrayRender2 = [];
-//let cont = 0;
 
 function App() {
   const listaLetras = [
@@ -40,6 +37,7 @@ function App() {
   const [clicados, setClicados] = useState([...listaLetras, "chutou"]);
   const [fimDeJogo, setFimDeJogo] = useState("");
   const [palavraJogo, setPalavraJogo] = useState("");
+  const [palavraLimpa, setPalavraLimpa] = useState("");
   const [palavraChute, setPalavraChute] = useState("");
   const [arrayRender1, setArrayRender1] = useState([]);
   const [arrayRender2, setArrayRender2] = useState([]);
@@ -48,9 +46,13 @@ function App() {
   function Palavra(p) {
     setClicados([]);
     setFimDeJogo("");
+    setPalavraChute("");
     setForca(`./assets/forca0.png`);
     const palavraSortiada =
       palavras[Math.floor(Math.random() * palavras.length)];
+    setPalavraLimpa(
+      palavraSortiada.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    );
     setPalavraJogo(palavraSortiada);
     const array1 = [];
     const array2 = [];
@@ -63,7 +65,6 @@ function App() {
     setArrayRender(array2);
     setArrayRender1([...array1]);
     setArrayRender2([...array2]);
-    console.log(array1);
   }
 
   function Letra(l) {
@@ -75,14 +76,19 @@ function App() {
     let valor = cont;
     let array2 = [...arrayRender2];
 
-    if (!arrayRender1.includes(l.toLowerCase())) {
+    if (!palavraLimpa.includes(l.toLowerCase())) {
       valor = cont + 1;
       setForca(`./assets/forca${valor}.png`);
     }
 
-    for (let i = 0; i < arrayRender1.length; i++) {
-      if (arrayRender1[i] === l.toLowerCase()) {
-        array2[i] = arrayRender1[i];
+    for (let i = 0; i < palavraLimpa.length; i++) {
+      if (palavraLimpa[i] === l.toLowerCase()) {
+        if(i===0){
+          array2[i] = palavraJogo[i];
+        }else{
+          array2[(i*2)] = palavraJogo[i];
+        }
+        
       }
     }
     setArrayRender2([...array2]);
@@ -93,7 +99,6 @@ function App() {
       setClicados([...listaLetras, "chutou"]);
       setFimDeJogo("verde");
     }
-    console.log(valor);
     if (valor === 6) {
       setClicados([...listaLetras, "chutou"]);
       setArrayRender(arrayRender1);
@@ -113,9 +118,10 @@ function App() {
       setFimDeJogo("verde");
     } else {
       setFimDeJogo("vermelha");
+      setForca(`./assets/forca6.png`);
     }
     setPalavraChute("");
-    setForca(`./assets/forca6.png`);
+    
   }
 
   return (
