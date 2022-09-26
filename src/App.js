@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 
 function App() {
-
   const listaLetras = [
     "A",
     "B",
@@ -55,7 +54,7 @@ function App() {
       palavraSortiada.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     );
     setPalavraJogo(palavraSortiada);
-    console.log(palavraSortiada)
+    console.log(palavraSortiada);
     const array1 = [];
     const array2 = [];
     for (let i = 0; i < palavraSortiada.length - 1; i++) {
@@ -85,12 +84,11 @@ function App() {
 
     for (let i = 0; i < palavraLimpa.length; i++) {
       if (palavraLimpa[i] === l.toLowerCase()) {
-        if(i===0){
+        if (i === 0) {
           array2[i] = palavraJogo[i];
-        }else{
-          array2[(i*2)] = palavraJogo[i];
+        } else {
+          array2[i * 2] = palavraJogo[i];
         }
-        
       }
     }
     setArrayRender2([...array2]);
@@ -109,6 +107,12 @@ function App() {
     }
   }
 
+  const handler = (event) => {
+    if (event.charCode === 13) {
+      Chutar();
+    }
+  };
+
   function Chutar() {
     if (clicados.includes("chutou")) {
       return;
@@ -121,7 +125,7 @@ function App() {
     } else {
       setFimDeJogo("vermelha");
       setForca(`./assets/forca6.png`);
-    }    
+    }
   }
 
   return (
@@ -155,6 +159,7 @@ function App() {
           type="text"
           value={palavraChute}
           onChange={(e) => setPalavraChute(e.target.value)}
+          onKeyPress={(e) => handler(e)}
         ></input>
         <button
           onClick={Chutar}
