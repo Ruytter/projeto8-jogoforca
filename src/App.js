@@ -42,8 +42,9 @@ function App() {
   const [arrayRender1, setArrayRender1] = useState([]);
   const [arrayRender2, setArrayRender2] = useState([]);
   const [cont, setCont] = useState(0);
-
+ console.log(cont)
   function Palavra(p) {
+    setCont(0)
     setClicados([]);
     setFimDeJogo("");
     setPalavraChute("");
