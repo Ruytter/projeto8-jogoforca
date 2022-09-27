@@ -54,7 +54,6 @@ function App() {
       palavraSortiada.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     );
     setPalavraJogo(palavraSortiada);
-    console.log(palavraSortiada);
     const array1 = [];
     const array2 = [];
     for (let i = 0; i < palavraSortiada.length - 1; i++) {
@@ -160,6 +159,7 @@ function App() {
           value={palavraChute}
           onChange={(e) => setPalavraChute(e.target.value)}
           onKeyPress={(e) => handler(e)}
+          disabled = {clicados.includes("chutou") ? true : false}
         ></input>
         <button
           onClick={Chutar}
